@@ -1,0 +1,40 @@
+package com.practise.newsapp.models
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.util.TableInfo
+import java.io.Serializable
+
+@Entity(
+    tableName = "articles",
+    primaryKeys = ["url"]
+)
+data class Article(
+    val id: Int? = null,
+    val author: String?,
+    val content: String?,
+    val description: String?,
+    val publishedAt: String?,
+    val source: Source?,
+    val title: String?,
+    val url: String,
+    val urlToImage: String?
+) : Serializable {
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        if (url.isEmpty()) {
+            result = 31 * result + url.hashCode()
+        }
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Article
+
+        return url == other.url
+    }
+}
